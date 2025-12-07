@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Laços e Funções em JavaScript</title>
+
+<style>
+/* ======================================================
+   RESET + TIPOGRAFIA
+====================================================== */
+* {
+    margin: 0; padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    transition: background 0.3s, color 0.3s;
+    padding-top: 70px;
+}
+
+/* ======================================================
+   VARIÁVEIS DO TEMA (LIGHT / DARK)
+====================================================== */
+:root {
+    --bg: #0e0e0e;
+    --card: #1a1a1a;
+    --text: #fff;
+    --accent: #4da3ff;
+    --border: #333;
+    --shadow: #000;
+    --terminal: #111;
+}
+
+.light {
+    --bg: #e6e6e6;
+    --card: #ffffff;
+    --text: #111;
+    --accent: #0077ff;
+    --border: #ccc;
+    --shadow: #ddd;
+    --terminal: #f7f7f7;
+}
+
+/* ======================================================
+   MENU SUPERIOR
+====================================================== */
+nav {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 60px;
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+    box-shadow: 0 0 15px var(--shadow);
+    z-index: 1000;
+}
+
+nav h1 {
+    font-size: 22px;
+    color: var(--accent);
+    user-select: none;
+}
+
+nav button {
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+nav button:hover {
+    transform: scale(1.1);
+}
+
+/* ======================================================
+   LAYOUT EM DUAS COLUNAS
+====================================================== */
+.container {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+}
+
+.left {
+    flex: 1;
+}
+
+.right {
+    width: 40%;
+}
+
+/* ======================================================
+   CARDS COM ANIMAÇÃO
+====================================================== */
+.card {
+    background: var(--card);
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    border: 1px solid var(--border);
+    box-shadow: 0 0 10px var(--shadow);
+    animation: fadeIn 0.8s ease;
+    transition: 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-5px) scale(1.02);
+    border-color: var(--accent);
+}
+
+.card h2 {
+    color: var(--accent);
+    margin-bottom: 10px;
+}
+
+/* ======================================================
+   BOTÕES 3D
+====================================================== */
+button {
+    background: var(--accent);
+    color: white;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: 0.2s;
+    box-shadow: 0 4px 0 #003f7a;
+}
+
+button:hover {
+    transform: translateY(-3px);
+}
+
+button:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #003f7a;
+}
+
+/* Botão limpar */
+.limpar {
+    background: #ff0033;
+    box-shadow: 0 4px 0 #7a001c;
+}
+
+/* ======================================================
+   TERMINAL / SAÍDA
+====================================================== */
+#saida {
+    background: var(--terminal);
+    color: #0f0;
+    border: 1px solid var(--border);
+    padding: 20px;
+    height: 60vh;
+    border-radius: 10px;
+    white-space: pre-wrap;
+    overflow-y: auto;
+    font-family: Consolas, monospace;
+    box-shadow: inset 0 0 20px #000;
+}
+
+/* ======================================================
+   CAIXA DE SENHA MODERNA
+====================================================== */
+#senhaBox {
+    background: var(--card);
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    margin-top: 10px;
+}
+
+#senhaBox input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    margin-bottom: 10px;
+}
+
+/* ======================================================
+   ANIMAÇÕES
+====================================================== */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+</style>
+</head>
+<body>
+
+<!-- ======================================================
+     MENU SUPERIOR
+====================================================== -->
+<nav>
+    <h1>Laços e Funções em JavaScript</h1>
+    <button onclick="toggleTheme()">🌙/☀️</button>
+</nav>
+
+<div class="container">
+
+<!-- ======================================================
+     COLUNA ESQUERDA – EXERCÍCIOS
+====================================================== -->
+<div class="left">
+
+    <div class="card"><h2>1. Contar de 1 a 10</h2><button onclick="ex1()">Rodar</button></div>
+    <div class="card"><h2>2. Soma de 1 a 50</h2><button onclick="ex2()">Rodar</button></div>
+    <div class="card"><h2>3. Contagem Regressiva</h2><button onclick="ex3()">Rodar</button></div>
+    <div class="card"><h2>4. Digitar até OK</h2><button onclick="ex4()">Rodar</button></div>
+    <div class="card"><h2>5. Tabuada</h2><button onclick="ex5()">Rodar</button></div>
+    <div class="card"><h2>6. Contar Pares</h2><button onclick="ex6()">Rodar</button></div>
+    <div class="card"><h2>7. Caracteres da Palavra</h2><button onclick="ex7()">Rodar</button></div>
+    <div class="card"><h2>8. Quadrado</h2><button onclick="ex8()">Rodar</button></div>
+    <div class="card"><h2>9. Repetir Frase</h2><button onclick="ex9()">Rodar</button></div>
+
+    <div class="card">
+        <h2>10. Sistema de Senha (3 tentativas)</h2>
+        <div id="senhaBox">
+            <input type="password" id="senhaInput" placeholder="Digite a senha...">
+            <button onclick="ex10()">Validar</button>
+        </div>
+    </div>
+
+</div>
+
+<!-- ======================================================
+     COLUNA DIREITA – TERMINAL
+====================================================== -->
+<div class="right">
+    <h2 style="color:var(--accent)">📟 Terminal</h2>
+    <div id="saida"></div>
+    <button class="limpar" onclick="limpar()">Limpar</button>
+</div>
+
+</div>
+
+<!-- ======================================================
+     SCRIPTS
+====================================================== -->
+<script>
+/* SAÍDA + LOCALSTORAGE */
+const out = document.getElementById("saida");
+
+function print(txt) {
+    out.innerText += txt + "\n";
+    localStorage.setItem("terminal", out.innerText);
+}
+
+function limpar() {
+    out.innerText = "";
+    localStorage.removeItem("terminal");
+}
+
+/* RECARREGA SAÍDA SALVA */
+if (localStorage.getItem("terminal")) {
+    out.innerText = localStorage.getItem("terminal");
+}
+
+/* SOM DE CLIQUE */
+function tocar() {
+    const audio = new Audio("https://www.soundjay.com/buttons/sounds/button-16.mp3");
+    audio.volume = 0.2;
+    audio.play();
+}
+
+/* THEME SWITCH */
+function toggleTheme() {
+    document.body.classList.toggle("light");
+}
+
+/* ======================================================
+   EXERCÍCIOS
+====================================================== */
+function ex1(){ tocar(); limpar(); for(let i=1;i<=10;i++) print(i); }
+function ex2(){ tocar(); limpar(); let s=0,i=1;while(i<=50){s+=i;i++;}print("Soma: "+s); }
+function ex3(){ tocar(); limpar(); let n=Number(prompt("Número:"));for(let i=n;i>=0;i--)print(i); }
+function ex4(){ tocar(); limpar(); let t;do{t=prompt("Digite algo (ok para sair):")}while(t!=="ok");print("Finalizado."); }
+function ex5(){ tocar(); limpar(); let n=Number(prompt("Tabuada de:"));for(let i=1;i<=10;i++)print(`${n} x ${i} = ${n*i}`); }
+function ex6(){ tocar(); limpar(); let p=0,i=1;while(i<=100){if(i%2==0)p++;i++;}print("Pares: "+p); }
+function ex7(){ tocar(); limpar(); let w=prompt("Palavra:");for(let i=0;i<w.length;i++)print(w[i]); }
+function ex8(){ tocar(); limpar(); let q=Number(prompt("Número:"));print("Quadrado: "+(q*q)); }
+function ex9(){ tocar(); limpar(); let f=prompt("Frase:"),v=Number(prompt("Vezes:"));for(let i=1;i<=v;i++)print(f); }
+
+/* Sistema de SENHA moderno (sem prompt) */
+let tentativas = 0;
+function ex10(){
+    tocar();
+    let senha = document.getElementById("senhaInput").value;
+    if(senha === "1234"){
+        print("✔️ Senha correta!");
+        tentativas = 0;
+    } else {
+        tentativas++;
+        print("❌ Senha incorreta! Tentativa " + tentativas + "/3");
+        if(tentativas >= 3){
+            print("⛔ Acesso bloqueado!");
+            tentativas = 0;
+        }
+    }
+}
+</script>
+
+</body>
+</html>
